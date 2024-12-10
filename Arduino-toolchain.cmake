@@ -94,6 +94,12 @@ set(CMAKE_FIND_ROOT_PATH_MODE_INCLUDE ONLY)
 # Workaround for CMAKE_TRY_COMPILE_TARGET_TYPE. For later ESP32 cores this file is missing
 file(WRITE "${CMAKE_CURRENT_BINARY_DIR}/build_opt.h" "")
 
+# ESP8266 build.opt fix
+if (NOT EXISTS "${CMAKE_BINARY_DIR}/core/build.opt")
+  file(MAKE_DIRECTORY ${CMAKE_BINARY_DIR}/core)
+  file(TOUCH ${CMAKE_BINARY_DIR}/core/build.opt)
+endif()
+
 # Do not try to link during the configure time, due to the dependency on the
 # core, which we do not have a target yet.
 set(CMAKE_TRY_COMPILE_TARGET_TYPE STATIC_LIBRARY)
